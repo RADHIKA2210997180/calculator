@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.container{
+    border:1px solid black;
+    max-width:300px;
+    min-height:300px;
+    margin:20px auto;
+}
+
+
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.buttons button {
+    cursor: pointer;
+    width: 50px;
+    padding: 5px;
+    margin: 6px;
+}
+
+
+.solutions_box{
+    overflow-wrap: break-word;
+min-height:100px;
+max-width:290px;
+}
+
+.buttons{
+    margin-top:3px;
+}
+
+.buttons button{
+    cursor:pointer;
+    width:50px;
+    padding:5px;
+    margin:6px 0px 0px 15px;;
+}
+
+.numbers{
+    background-color:#ecf0f1;
+}
+
+#disp{
+    /* white-space: pre-line; */
+    max-width:290px;
+}
+    </style>
+</head>
+<body>
+    <h1><center>CALCULATOR</center></h1>
+    <div class="container">
+        <div class="solutions_box">
+            <span  id="disp">
+
+            </span>
+        </div>
+        <hr/>
+        <div class="buttons">
+            <button>CE</button>
+            <button>(</button>
+            <button>)</button>
+            <button>%</button>
+            <br/>
+            <button class="numbers">7</button>
+            <button class="numbers">8</button>
+            <button class="numbers">9</button>
+            <button>/</button>
+            <br/>
+            <button class="numbers">4</button>
+            <button class="numbers">5</button>
+            <button class="numbers">6</button>
+            <button>*</button>
+            <br/>
+            <button class="numbers">1</button>
+            <button class="numbers">2</button>
+            <button class="numbers">3</button>
+            <button>-</button>
+            <br/>
+            <button class="numbers">0</button>
+            <button>.</button>
+            <button>=</button>
+            <button>+</button>
+        </div>
+    </div>
+    <script>
+let display="";
+function isnumber(no){
+    let n=parseInt(no);
+    return !isNaN(n);
+}
+
+const buttons=document.querySelectorAll('button');
+buttons.forEach((button)=>{
+    button.addEventListener("click",()=>{
+        let op=button.innerHTML;
+        let l=display.length;
+        if(op=='='){
+            try{
+            result=eval(display)
+            document.getElementById('disp').innerHTML=result;
+            display=result;
+        }
+        catch(e){
+            document.getElementById('disp').innerHTML='NA';
+        }
+        }
+        else if((op=='+'||op=='-'||op==''||op=='/'||op=='%')&&(display[l-1]=='+'||display[l-1]=='-'||display[l-1]==''||display[l-1]=='/'||display[l-1]=='%')){
+            display=display.slice(0,-1);
+            document.getElementById('disp').innerHTML=display;
+            display+=op;
+            document.getElementById('disp').innerHTML=display;
+        }
+        else if((op=='(' && display[l-1]==')')||op==')' && display[l-1]=='('){
+            display=display.slice(0,-1);
+            document.getElementById('disp').innerHTML=display;
+            display+=op;
+            document.getElementById('disp').innerHTML=display;
+        }
+        else if(op=='CE'){
+            display="";
+            document.getElementById('disp').innerHTML=display;
+        }
+        else{
+        display+=op;
+        document.getElementById('disp').innerHTML=display;
+        }
+    })
+})
+    </script>
+</body>
+</html>
